@@ -1,4 +1,5 @@
 import requests as re
+import unittest as unit
 
 def find_color_from_url(url):
      # Отправка запроса на указанный URL
@@ -17,3 +18,18 @@ def find_color_from_url(url):
 def find_hex_colors_from_text(text):
     pattern = r'#[A-Fa-f0-9]{6}'
     return re.findall(pattern, text)
+
+class TestHexColorFinder(unit.TestCase):
+    def test_find_hex_colors_from_text(self):
+        # Тест с корректными HEX-цветами
+        text = "Цвета: #ff80ed, #008080 и #000000."
+        expected = ['#ff80ed', '#008080', '#000000']
+        self.assertEqual(find_hex_colors_from_text(text), expected)
+
+        # Тест с некорректными значениями
+        text = "Некорректные: #GGGGGG, 123456, #12FG45."
+        self.assertEqual(find_hex_colors_from_text(text), [])
+
+        # Тест с пустой строкой
+        text = ""
+        self.assertEqual(find_hex_colors_from_text(text), [])
