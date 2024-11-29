@@ -92,4 +92,4 @@ class TestHexColorFinder(unit.TestCase):
 
 if __name__ == "__main__":
     print("Запуск тестов...")
-    unit.main()
+    unit.main(exit=False)
