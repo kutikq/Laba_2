@@ -1,18 +1,26 @@
-import requests as re
+import requests
+import re
 import unittest as unit
 
 def find_color_from_url(url):
-     # Отправка запроса на указанный URL
-    response = re.get(url)
-    response.raise_for_status()  # Проверка успешности запроса
+     #выдавал ошибку если запускал тест=>доюавил исключение
+    try:
+        # Отправка запроса на указанный URL
+        response = requests.get(url)
+        response.raise_for_status()  # Проверка успешности запроса
 
-    # Извлекаем текст страницы
-    html_content = response.text
+        # Извлекаем текст страницы
+        html_content = response.text
 
-    # Регулярное выражение для поиска HEX цветов
-    pattern = r'#[A-Fa-f0-9]{6}'
-    hex_colors = re.findall(pattern, html_content)
-    return hex_colors
+        # Регулярное выражение для поиска HEX цветов
+        pattern = r'#[A-Fa-f0-9]{6}'
+        hex_colors = re.findall(pattern, html_content)
+        return hex_colors
+     
+    except requests.exceptions.RequestException as e:
+        print(f"Ошибка при запросе URL: {e}")
+        return []
+
 
 #функция для ручного поиска
 def find_hex_colors_from_text(text):
@@ -50,3 +58,7 @@ class TestHexColorFinder(unit.TestCase):
         text = "Пограничные случаи: #ff0000 и #FFFFFF000."
         expected = ['#ff0000']
         self.assertEqual(find_hex_colors_from_text(text), expected)
+
+if __name__ == "__main__":
+    print("Запуск тестов...")
+    unit.main()
