@@ -33,3 +33,14 @@ class TestHexColorFinder(unit.TestCase):
         # Тест с пустой строкой
         text = ""
         self.assertEqual(find_hex_colors_from_text(text), [])
+
+    def test_find_hex_colors_from_url(self):
+        # Тест с корректным URL (проверяется наличие хоть одного цвета)
+        url = "https://www.color-hex.com/popular-colors.php"
+        result = find_color_from_url(url)
+        self.assertGreater(len(result), 0, "Список HEX-цветов пуст.")
+
+        # Тест с некорректным URL
+        url = "https://nonexistent-url-example.com"
+        result = find_color_from_url(url)
+        self.assertEqual(result, [])
