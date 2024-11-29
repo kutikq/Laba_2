@@ -44,3 +44,9 @@ class TestHexColorFinder(unit.TestCase):
         url = "https://nonexistent-url-example.com"
         result = find_color_from_url(url)
         self.assertEqual(result, [])
+
+    def test_edge_cases(self):
+        # ЕСли введем не в нашем формате
+        text = "Пограничные случаи: #ff0000 и #FFFFFF000."
+        expected = ['#ff0000']
+        self.assertEqual(find_hex_colors_from_text(text), expected)
