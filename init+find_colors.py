@@ -13,7 +13,7 @@ def find_color_from_url(url):
         html_content = response.text
 
         # Регулярное выражение для поиска HEX цветов
-        pattern = r'#[A-Fa-f0-9]{6}'
+        pattern = r'\b#[A-Fa-f0-9]{6}\b'
         hex_colors = re.findall(pattern, html_content)
         return hex_colors
      
